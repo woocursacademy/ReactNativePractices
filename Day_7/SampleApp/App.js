@@ -27,6 +27,7 @@ export default function App(){
     setCategory("");
   };
 
+  const total = expenses.reduce((sum,item) => sum+item.amount,0);
 
   return(
     <View style={styles.container}>
@@ -47,13 +48,13 @@ export default function App(){
       <TouchableOpacity style={styles.addBtn} onPress={addExpense}>
         <Text style={styles.addText}>Add Expenses</Text>
       </TouchableOpacity>
-      <Text>Total: </Text>
+      <Text style={styles.total}>Total: ${total}</Text>
       <FlatList 
       data={expenses}
       keyExtractor={(item) => item.id}
       renderItem={({item}) => (
-        <View>
-          <Text>{item.category}</Text>
+        <View style={styles.card}>
+          <Text style={styles.category}>{item.category}</Text>
           <Text>{item.amount}</Text>
         </View>
       )}
@@ -89,5 +90,21 @@ const styles = StyleSheet.create({
     color:"white",
     textAlign:"center",
     fontWeight:"bold",
+  },
+  card: {
+    flexDirection: "row",
+    justifyContent:"space-between",
+    borderWidth: 1,
+    padding:12,
+    borderRadius:8,
+    marginBottom: 10,
+  },
+  category:{
+    fontWeight:"bold",
+  },
+  total:{
+    fontSize:20,
+    fontWeight:"bold",
+    marginBottom:20,
   },
 });
